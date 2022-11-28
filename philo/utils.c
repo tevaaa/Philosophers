@@ -25,11 +25,6 @@ void	ft_putstr_fd(char const *s, int fd)
 	}
 }
 
-int	ft_isdigit(char c)
-{
-	return (c <= '9' && c >= '0');
-}
-
 int	ft_atoi(const char *str)
 {
 	int	i;
@@ -48,7 +43,7 @@ int	ft_atoi(const char *str)
 			sign = -1;
 		i ++;
 	}
-	while (str[i] && ft_isdigit(str[i]))
+	while (str[i] && str[i] <= '9' && str[i] >= '0')
 	{
 		res = res * 10 + (str[i] - '0');
 		i ++;
@@ -56,27 +51,24 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-int	t_stamp(t_philo_u *p)
+long	get_time()
 {
 	struct timeval t;
-	long long int time;
-	(void) p;
 	gettimeofday(&t, 0);
-	time = (t.tv_sec * 1000) + (t.tv_usec / 1000);
-	return (time - p->start_time);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+}
+
+int	t_stamp(t_philo_u *p)
+{
+	return (get_time() - p->start_time);
 }
 
 void	ft_usleep(int time)
 {
-	/*
-	int	i;
-	long int	temp;
+	long	temp;
 
-	time *= 1000;
-	temp = (time * 0.95);
-	i = temp;
-	while (i++ < time)
+	temp = get_time();
+	usleep(time * 0.95 * 1000);
+	while (get_time() - temp < time)
 		usleep(1);
-		*/
-	usleep(time * 1000);
 }

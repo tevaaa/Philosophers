@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:21 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 18:04:28 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 20:41:10 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	philo_eat(t_philo_u *p_u)
 		pthread_mutex_lock(&p_u->p->forks[p_u->right]);
 		time = t_stamp(p_u);
 		pthread_mutex_lock(p_u->p->talk);
-		if (time - p_u->last_eat > p_u->p->die)
+		if (get_time() - p_u->last_eat > p_u->p->die)
 			return (0);
 		else
-			p_u->last_eat = time;
+			p_u->last_eat = get_time();
 		printf("%ldms %d has taken a fork\n",time , p_u->id + 1);
 		printf("%ldms %d is eating\n",time , p_u->id + 1);
 		pthread_mutex_unlock(p_u->p->talk);
@@ -56,5 +56,4 @@ void	philo_think(t_philo_u *p_u)
 	pthread_mutex_lock(p_u->p->talk);
 	printf("%ldms %d is thinking\n",time , p_u->id + 1);
 	pthread_mutex_unlock(p_u->p->talk);
-	usleep(2);
 }

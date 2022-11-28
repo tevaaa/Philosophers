@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:53:26 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 18:05:45 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 20:52:28 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_philo
 {
 	pthread_t		*arr_th;
+	pthread_t		watcher;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*talk;
 	int				philo_n;
@@ -36,7 +37,7 @@ typedef struct s_philo_u
 {
 	int		id;
 	t_philo	*p;
-	int		start_time;
+	long long int	start_time;
 	long long int	last_eat;
 	int		left;
 	int		right;
@@ -51,4 +52,5 @@ void	ft_usleep(int time);
 int		philo_eat(t_philo_u *p_u);
 void	philo_sleep(t_philo_u *p_u);
 void	philo_think(t_philo_u *p_u);
+long	get_time();
 #endif

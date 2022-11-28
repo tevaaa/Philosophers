@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 19:03:55 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/26 19:18:10 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 14:56:34y tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,27 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-int	t_stamp(t_philo *p)
+int	t_stamp(t_philo_u *p)
 {
-	struct timeval actual_time;
-	
-	gettimeofday(&actual_time, 0);
-	return (actual_time.tv_usec - p->start_time);
+	struct timeval t;
+	long long int time;
+	(void) p;
+	gettimeofday(&t, 0);
+	time = (t.tv_sec * 1000) + (t.tv_usec / 1000);
+	return (time - p->start_time);
+}
+
+void	ft_usleep(int time)
+{
+	/*
+	int	i;
+	long int	temp;
+
+	time *= 1000;
+	temp = (time * 0.95);
+	i = temp;
+	while (i++ < time)
+		usleep(1);
+		*/
+	usleep(time * 1000);
 }

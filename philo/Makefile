@@ -1,6 +1,6 @@
 RM = rm -f
 
-SRC = philo.c utils.c parsing.c forks.c
+SRC = philo.c utils.c parsing.c forks.c actions.c
 
 OBJS = ${SRC:.c=.o}
 

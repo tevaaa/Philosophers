@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:53:23 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/26 19:21:23 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 18:06:02 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ pthread_mutex_unlock
 void	*routine(void *args)
 {
 	t_philo_u	*p_u;
-
-
+	struct timeval start_time;
+	
 	p_u = (t_philo_u *) args;
-	while (!p_u->dead)
+	gettimeofday(&start_time, 0);
+	p_u->start_time = (start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
+	p_u->last_eat = t_stamp(p_u);
+	while (1)
 	{
-		pthread_mutex_lock(&p_u->p->forks[p_u->left]);
-		printf("%dms %d has taken a fork\n",t_stamp(p_u->p) , p_u->id + 1);
-		pthread_mutex_lock(&p_u->p->forks[p_u->right]);
-		printf("%dms %d has taken a fork\n",t_stamp(p_u->p) , p_u->id + 1);
-		printf("%dms %d is eating\n",t_stamp(p_u->p) , p_u->id + 1);
-		usleep(p_u->p->eat);
-		pthread_mutex_unlock(&p_u->p->forks[p_u->left]);
-		pthread_mutex_unlock(&p_u->p->forks[p_u->right]);
+		philo_think(p_u);
+		if (!philo_eat(p_u))
+		{
+			printf("%d is dead\n", p_u->id + 1);
+			exit(1);
+		}
+		philo_sleep(p_u);
 	}
 	return (0);
 }
@@ -47,11 +49,13 @@ int	init_philo(t_philo_u *list, t_philo *p)
 	int	i;
 	i = 0;
 	
+	pthread_mutex_init(p->talk, 0);
 	while (i < p->philo_n)
 	{
+		if (i % 2 == 1)
+			ft_usleep(10);
 		list[i].id = i;
 		list[i].p = p;
-		list[i].dead = 0;
 		if (i == 0)
 			list[i].left = p->philo_n - 1;
 		else
@@ -67,21 +71,31 @@ int	init_philo(t_philo_u *list, t_philo *p)
 	return (1);
 }
 
+void	join_philo(t_philo_u *l)
+{
+	int	i;
+
+	i = 0;
+	while (i < l->p->philo_n)
+	{
+		pthread_join(l->p->arr_th[i], 0);
+		i ++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo		*philo;
 	t_philo_u	*list;
-	struct timeval start_time;
 
 	philo = malloc(sizeof(t_philo) * 1);
 	if (!parsing(argc, argv, philo))
 		return (1);
-	gettimeofday(&start_time, 0);
-	philo->start_time = start_time.tv_usec;
 	philo->arr_th = malloc(sizeof(pthread_t) * philo->philo_n);
 	list = malloc(sizeof(t_philo_u) * philo->philo_n);
 	init_forks(philo);
 	if (!init_philo(list, philo))
 		return (1);
+	join_philo(list);
 	return (0);
 }

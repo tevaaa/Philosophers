@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:53:23 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 20:57:09 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 21:56:55 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,25 @@ void	*routine(void *args)
 	return (0);
 }
 
-void	*watch(void **args)
+void	*observe(void *args)
 {
-	t_philo_u	**list;
+
+	t_philo_u	*list;
+	int			size;
 	int			i;
-	
-	list = (t_philo_u **) args;
-	i = 0;
+
+	list = args;
+	size = list->p->philo_n;
 	while (1)
 	{
-		while (i < list[0]->p->philo_n)
+		i = 0;
+		while (i < size)
 		{
-			printf("%lld\n", list[i]->last_eat);
+			if (get_time() - list[i].last_eat > list->p->die)
+			{
+				printf("%dms %d is dead\n", t_stamp(list), list[i].id + 1);
+				exit(0);
+			}
 			i ++;
 		}
 	}
@@ -53,14 +60,13 @@ void	*watch(void **args)
 int	init_philo(t_philo_u *list, t_philo *p)
 {
 	int	i;
+	pthread_t	*observer;
+	observer = malloc(sizeof(pthread_t) * 1);
 	i = 0;
-	
-	pthread_create(&p->watcher, 0, &watch (void *) list);
-	pthread_mutex_init(p->talk, 0);
 	while (i < p->philo_n)
 	{
 		if (i % 2 == 1)
-			ft_usleep(5);
+			ft_usleep(2);
 		list[i].id = i;
 		list[i].p = p;
 		if (i == 0)
@@ -75,6 +81,8 @@ int	init_philo(t_philo_u *list, t_philo *p)
 		}
 		i ++;
 	}
+	pthread_create(observer, 0, &observe, (void *) list);
+	pthread_mutex_init(p->talk, 0);
 	return (1);
 }
 
@@ -91,6 +99,7 @@ int	main(int argc, char **argv)
 	init_forks(philo);
 	if (!init_philo(list, philo))
 		return (1);
-	join_philo(list);
+	while (1)
+		;
 	return (0);
 }

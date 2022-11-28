@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:53:26 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 20:52:28 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/28 21:21:49 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 typedef struct s_philo
 {
 	pthread_t		*arr_th;
-	pthread_t		watcher;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*talk;
 	int				philo_n;

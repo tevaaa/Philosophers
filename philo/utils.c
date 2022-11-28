@@ -69,6 +69,6 @@ void	ft_usleep(int time)
 
 	temp = get_time();
 	usleep(time * 0.95 * 1000);
-	while (get_time() - temp < time)
+	while (get_time() - temp <= time)
 		usleep(1);
 }

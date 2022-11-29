@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:53:26 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 21:21:49 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/29 19:20:29 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-#define BAD_ARGS "Bad numbers of argument: need 4 or 5\n"
+# define BAD_ARGS "Bad numbers of argument: need 4 or 5\n"
 
 typedef struct s_philo
 {
 	pthread_t		*arr_th;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*talk;
+	pthread_mutex_t	talk;
 	int				philo_n;
 	int				die;
 	int				eat;
@@ -34,12 +34,15 @@ typedef struct s_philo
 
 typedef struct s_philo_u
 {
-	int		id;
-	t_philo	*p;
+	int				id;
+	t_philo			*p;
+	pthread_t		*observer;
 	long long int	start_time;
+	long long int	time_in;
 	long long int	last_eat;
-	int		left;
-	int		right;
+	int				eat_n;
+	int				left;
+	int				right;
 }	t_philo_u;
 
 void	ft_putstr_fd(char const *s, int fd);
@@ -51,5 +54,5 @@ void	ft_usleep(int time);
 int		philo_eat(t_philo_u *p_u);
 void	philo_sleep(t_philo_u *p_u);
 void	philo_think(t_philo_u *p_u);
-long	get_time();
+long	get_time(void);
 #endif

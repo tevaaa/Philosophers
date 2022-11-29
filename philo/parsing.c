@@ -6,7 +6,7 @@
 /*   By: tandre <tandre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:07:40 by tandre            #+#    #+#             */
-/*   Updated: 2022/11/28 14:22:40 by tandre           ###   ########.fr       */
+/*   Updated: 2022/11/29 18:46:32 by tandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	parse_times(int argc, char **argv, t_philo *p)
 {
 	if (argc == 6)
 		p->n_to_eat = ft_atoi(argv[5]);
+	else
+		p->n_to_eat = -1;
 	p->philo_n = ft_atoi(argv[1]);
 	p->die = ft_atoi(argv[2]);
 	p->eat = ft_atoi(argv[3]);
@@ -30,9 +32,9 @@ int	parsing(int argc, char **argv, t_philo *philo)
 	if (argc != 6 && argc != 5)
 	{
 		ft_putstr_fd(BAD_ARGS, 2);
-		return(0);
+		return (0);
 	}
 	if (!parse_times(argc, argv, philo))
 		return (0);
-	return(1);
+	return (1);
 }

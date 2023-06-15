@@ -4,8 +4,6 @@
 
 This project demonstrates a synchronisation problem: the Dining Philosophers. The objective of the project is to learn about multi-threading and resource sharing in the context of parallel computing.
 
-![Screenshot from 2023-06-15 03-05-37](https://github.com/tevaaa/Philosophers/assets/74090323/1608e57c-0fb0-4b21-8724-123ffcfba06a)
-
 ## Problem Description
 
 The Dining Philosophers Problem involves a scenario where a number of philosophers are sitting around a circular table, each philosopher alternating between thinking, eating and sleeping The philosophers share forks placed between them. 🍽️💤 
@@ -22,18 +20,15 @@ The project is implemented using multi-threading in C, each philosopher is repre
 
 ## Usage
 
-`git clone https://github.com/tevaaa/Philosophers.git`
-
-`cd philo`
-
-`make` 
-
-`./philo <philo number> <ms for routine> <ms to eat> <ms to sleep> [stop after n times eat]` 
-<philo number>: Number of philosophers
-<ms for routine>: Time in milliseconds for the routine to repeat
-<ms to eat>: Time in milliseconds for a philosopher to eat
-<ms to sleep>: Time in milliseconds for a philosopher to sleep
-[stop after n times eat] (optional): Stop the simulation after a philosopher has eaten n times
+1. `git clone https://github.com/tevaaa/Philosophers.git`
+2. `cd philo`
+3. `make` 
+4. `./philo <philo number> <ms for routine> <ms to eat> <ms to sleep> [stop after n times eat]` 
+* (philo number): Number of philosophers
+* (ms for routine): Time in milliseconds for the routine to repeat
+* (ms to eat): Time in milliseconds for a philosopher to eat
+* (ms to sleep): Time in milliseconds for a philosopher to sleep
+* (stop after n times eat) (optional): Stop the simulation after a philosopher has eaten n times
 
 ## Examples 
 
@@ -47,6 +42,3 @@ program must stop after all philosophers eat 7 times (grep "is eating" | wc -l) 
 
 `./philo 3 500 200 200` - 
 one philo can't eat in time
-
-![Screenshot from 2023-06-15 03-10-16](https://github.com/tevaaa/Philosophers/assets/74090323/ca520ada-93a9-48f0-a66c-d166b6777c29)
-

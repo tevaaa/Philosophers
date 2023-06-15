@@ -45,8 +45,8 @@ program musn't stop
 program must stop after all philosophers eat 7 times (grep "is eating" | wc -l) >= 35
 
 
-`./philo 5 500 200 200` - 
+`./philo 3 500 200 200` - 
 one philo can't eat in time
 
-![image](https://github.com/tevaaa/Philosophers/assets/74090323/ca7214ee-17c7-46b7-98fc-6bd7bfe24c3d)
+![Screenshot from 2023-06-15 03-10-16](https://github.com/tevaaa/Philosophers/assets/74090323/ca520ada-93a9-48f0-a66c-d166b6777c29)
 

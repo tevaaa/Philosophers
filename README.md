@@ -4,6 +4,8 @@
 
 This project demonstrates a synchronisation problem: the Dining Philosophers. The objective of the project is to learn about multi-threading and resource sharing in the context of parallel computing.
 
+![Screenshot from 2023-06-15 03-05-37](https://github.com/tevaaa/Philosophers/assets/74090323/1608e57c-0fb0-4b21-8724-123ffcfba06a)
+
 ## Problem Description
 
 The Dining Philosophers Problem involves a scenario where a number of philosophers are sitting around a circular table, each philosopher alternating between thinking, eating and sleeping The philosophers share forks placed between them. 🍽️💤 
@@ -43,6 +45,8 @@ program musn't stop
 program must stop after all philosophers eat 7 times (grep "is eating" | wc -l) >= 35
 
 
-`./philo 10 500 200 250` - 
-no time to complete routine a philo must die
+`./philo 5 500 200 200` - 
+one philo can't eat in time
+
+![image](https://github.com/tevaaa/Philosophers/assets/74090323/ca7214ee-17c7-46b7-98fc-6bd7bfe24c3d)
 
